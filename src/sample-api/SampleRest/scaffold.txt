@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Host=localhost;Database=SampleApi;Username=postgres;Password=p@ssw0rd" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -f

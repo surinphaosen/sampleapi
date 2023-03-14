@@ -1,0 +1,82 @@
+version: '3.4'
+
+services:
+  samplesoap:
+    container_name: samplesoap
+    image: surinp/samplesoap:1.0
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:Npgsql=Host=postgresdb;Database=SampleApi;Username=postgres;Password=p@ssw0rd;
+    ports:
+      - 8002:80
+
+  samplerest:
+    container_name: samplerest
+    restart: always
+    image: surinp/samplerest:1.0
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:Npgsql=Host=postgresdb;Database=SampleApi;Username=postgres;Password=p@ssw0rd;
+    ports:
+      - 8001:80
+
+
+  sampleodata:
+    container_name: sampleodata
+    image: surinp/sampleodata:1.0
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:Npgsql=Host=postgresdb;Database=SampleApi;Username=postgres;Password=p@ssw0rd;
+
+    ports:
+      - 8003:80
+
+
+  samplegraphql:
+    container_name: samplegraphql
+    image: surinp/samplegraphql:1.0
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:Npgsql=Host=postgresdb;Database=SampleApi;Username=postgres;Password=p@ssw0rd;
+    ports:
+      - 8004:80
+
+
+  postgresdb:
+    container_name: postgresdb
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p@ssw0rd
+      - POSTGRES_DB=SampleApi
+    ports:
+        - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+
+
+  pgadmin:
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@company.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    ports:
+        - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "8080:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+

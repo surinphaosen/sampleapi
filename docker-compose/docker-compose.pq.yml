@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  postgresdb:
+    container_name: postgresdb
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p@ssw0rd
+      - POSTGRES_DB=SampleApi
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
